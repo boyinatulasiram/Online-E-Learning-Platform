@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const CourseView = () => {
@@ -15,7 +15,7 @@ const CourseView = () => {
 
   const fetchCourse = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/students/course/${id}`);
+      const response = await api.get(`/students/course/${id}`);
       setCourse(response.data);
     } catch (error) {
       console.error('Error fetching course:', error);
@@ -27,8 +27,7 @@ const CourseView = () => {
   const handleEnroll = async () => {
     setEnrolling(true);
     try {
-      await axios.post(`http://localhost:5000/api/students/enroll/${id}`);
-      // Refresh course data
+      await api.post(`/students/enroll/${id}`);
       fetchCourse();
     } catch (error) {
       console.error('Error enrolling in course:', error);
