@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const EducatorDashboard = () => {
@@ -17,7 +17,7 @@ const EducatorDashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/educators/courses');
+      const response = await api.get('/educators/courses');
       const courses = response.data;
       
       setStats({

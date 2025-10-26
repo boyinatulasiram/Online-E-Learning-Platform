@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const StudentDashboard = () => {
@@ -18,8 +18,8 @@ const StudentDashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const [enrolledResponse, coursesResponse] = await Promise.all([
-        axios.get('http://localhost:5000/api/students/enrolled'),
-        axios.get('http://localhost:5000/api/students/courses')
+        api.get('/students/enrolled'),
+        api.get('/students/courses')
       ]);
 
       setStats({

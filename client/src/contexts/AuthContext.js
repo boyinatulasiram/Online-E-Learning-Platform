@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      console.log('Attempting login to:', api.defaults.baseURL + '/auth/login');
       const response = await api.post('/auth/login', {
         email,
         password
@@ -51,6 +52,16 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       return { success: true };
     } catch (error) {
+      console.error('Login error:', error);
+      console.error('Error response:', error.response);
+      
+      if (error.code === 'ERR_NETWORK') {
+        return { 
+          success: false, 
+          message: 'Cannot connect to server. Please check if the backend is running.' 
+        };
+      }
+      
       return { 
         success: false, 
         message: error.response?.data?.message || 'Login failed' 

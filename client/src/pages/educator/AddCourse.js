@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const AddCourse = () => {
@@ -45,7 +45,7 @@ const AddCourse = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/educators/add-course', formData);
+      await api.post('/educators/add-course', formData);
       navigate('/educator/courses');
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to create course');

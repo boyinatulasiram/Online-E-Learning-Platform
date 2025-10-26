@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const EditCourse = () => {
@@ -24,7 +24,7 @@ const EditCourse = () => {
 
   const fetchCourse = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/educators/course/${id}`);
+      const response = await api.get(`/educators/course/${id}`);
       const course = response.data;
       setFormData({
         title: course.title,
@@ -70,7 +70,7 @@ const EditCourse = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/educators/edit-course/${id}`, formData);
+      await api.put(`/educators/edit-course/${id}`, formData);
       navigate('/educator/courses');
     } catch (error) {
       setError(error.response?.data?.message || 'Failed to update course');

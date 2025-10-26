@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../utils/api';
 import Navbar from '../../components/Navbar';
 
 const EducatorCourses = () => {
@@ -30,7 +30,7 @@ const EducatorCourses = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/educators/courses');
+      const response = await api.get('/educators/courses');
       setCourses(response.data);
     } catch (error) {
       console.error('Error fetching courses:', error);
@@ -46,7 +46,7 @@ const EducatorCourses = () => {
 
     setDeleting({ ...deleting, [courseId]: true });
     try {
-      await axios.delete(`http://localhost:5000/api/educators/delete-course/${courseId}`);
+      await api.delete(`/educators/delete-course/${courseId}`);
       // Remove course from local state
       setCourses(courses.filter(course => course._id !== courseId));
     } catch (error) {
